@@ -1,0 +1,21 @@
+{
+  "name": "wordspliter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "build": "webpack --mode development",
+    "clean": "del dist /q /s",
+    "watch": "webpack --watch",
+    "wdv": "webpack-dev-server",
+    "buildproduction": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3"
+  }
+}

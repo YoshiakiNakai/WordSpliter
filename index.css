@@ -1,0 +1,119 @@
+html {
+	/* font-family: cursive; */
+	/* font-size: 16px; */
+	/* color: #111; */
+	background: #eee;
+	touch-action: manipulation;
+}
+
+/* 区切り文字がなくとも英字を改行させる */
+p {
+	/* word-wrap: break-word; */
+	word-break: break-all;
+}
+
+/* table */
+/* tableラベル列 */
+td:first-child {
+	text-align: right;
+	cursor: default;
+}
+/* 画面が小さいとき */
+@media screen and (max-width: 600px) {
+	td:first-child { text-align: left;}
+	/* 列を改行可能にする */
+	td{
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+ul {
+	list-style: none;
+	padding: 1px;
+	margin: 1px 0px;
+}
+li {
+	display: flex;
+}
+
+textarea {
+	font-family: inherit;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	font-size: 0.9em;
+	padding: .1em .2em;
+	margin: 1.5px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	filter:alpha(opacity=90); -moz-opacity: 0.9; opacity: 0.9;
+}
+
+button {
+	font-family: inherit;
+	font-size: 0.9em;
+	padding: .2em .5em;
+	margin: 1.5px 1.5px;
+	outline: none;
+	/* border: 1px solid #ccc; */ /* buttonface */
+	border-radius: 6px;				/* buttonface */
+}
+
+/* 改行を禁止し、横幅を超えた文字は隠す */
+.hideOverWidth{
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+}
+.embossTx {
+	text-shadow: -1px -1px #ffffff40, 1px 1px #00000040;
+}
+.debossTx {
+	text-shadow: 1px 1px 1px #ffffffa0;
+}
+.emboss {
+	box-shadow: inset 0 2px 0 #ffffff60, 0 2px 2px #00000060;
+	border-bottom: solid 2px #00000080;
+}
+
+/**************************************************************/
+/* 共通 */
+/**************************************************************/
+/* display */
+.none {
+	display: none;
+}
+.inlnblk {
+	display: inline-block;
+}
+.flex {
+	display: flex;
+}
+
+/* 選択不可、イベント透過 */
+.selectNone {
+	pointer-events: none;
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer */
+	-khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+	-webkit-user-select: none; /* Chrome, Safari, and Opera */
+	-webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+
+/* font */
+.strikeThrough {
+	font-weight: normal;
+	text-decoration: line-through;
+}
+.bold{
+	font-weight: bold;
+}
+.small{
+	font-size: 0.9em;
+}
+/* 色 */
+.grayout {
+	background-color: #ddd;
+	color: #aaa; 
+}

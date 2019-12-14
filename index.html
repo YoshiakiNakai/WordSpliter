@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WordSpliter</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="icon" type="image/png" href="images/icons/icon-512x512.png">
+
+	<!-- PWA -->
+	<!-- iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes"><!-- アドレスバー等のブラウザのUIを非表示 -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"><!-- default（Safariと同じ） / black（黒） / black-translucent（ステータスバーをコンテンツに含める） -->
+	<meta name="apple-mobile-web-app-title" content="WordSpliter"><!-- ホーム画面に表示されるアプリ名 -->
+	<link rel="apple-touch-icon" href="images/icons/icon-152x152.png"><!-- ホーム画面に表示されるアプリアイコン -->
+	<!-- Android -->
+	<link rel="manifest" href="manifest.json"><!-- ウェブアプリマニフェストの読み込み -->
+	<!-- ServiceWorkerの登録 -->
+	<script>
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('sw.js')
+			.then((reg) => { /* console.log('SW registered.', reg); */ });
+	}
+	</script>
+	<!-- end PWA -->
+</head>
+
+<body><!-- body -->
+<button id="InstallBtn" class="none">ホーム画面に追加</button>
+<h1>WordSpliter</h1>
+<table><tbody>
+	<tr><td>入力テキスト</td>
+		<td>
+			<textarea id="In"></textarea>
+			<!-- Paste機能。要permission <button id="BtnPasteInIn">Paste</button>-->
+		</td>
+	</tr>
+	<tr><td>区切り文字</td>
+		<td><textarea id="Dlmt" placeholder="一文字区切り">,</textarea></td>
+	</tr>
+	<tr>
+		<td><label><input id="CheckboxReplaceDlmt" type="checkbox" checked/>区切り文字の変換</label></td>
+		<td><textarea id="StringReplaceTo"></textarea></td>
+	</tr>
+	<tr>
+		<td>接頭辞 付与</td>
+		<td><textarea id="Prefix" placeholder="なし"></textarea></td>
+	</tr>
+	<tr>
+		<td>接尾辞 付与</td>
+		<td><textarea id="Suffix" placeholder="なし"></textarea></td>
+	</tr>
+	<tr><td>出力形式</td>
+		<td>
+			<button id="BtnOt">出力</button>
+			<button id="BtnOtReverse">逆順</button>
+			<button id="BtnOtSplit">分割</button>
+		</td>
+	</tr>
+	<tr><td></td><td><hr></td></tr>
+	<tr><td>出力</td>
+		<td class="flex">
+			<textarea id="Ot"></textarea>
+			<button id="BtnCopyOt">Copy</button>
+		</td>
+	</tr>
+	<tr><td></td><td><hr></td></tr>
+	<tr>
+		<td>分割出力</td>
+		<td id="PlhlrOtWordList"><ul><!-- 分割単語出力領域 --></ul></td>
+	</tr>
+</tbody></table>
+<script src="./dist/index.js"></script>
+
+<script>
+//PWA
+registerInstallAppEvent(document.getElementById("InstallBtn"));
+//バナー表示をキャンセルし、代わりに表示する要素を登録する
+function registerInstallAppEvent(elem){
+	elem.addEventListener("click", installApp);
+	//インストールバナー条件満足時のイベント乗っ取り
+	window.addEventListener('beforeinstallprompt', function (event) {
+		//console.log(event);
+		event.preventDefault();	//バナー表示をキャンセル
+		elem.promptEvent = event;
+		elem.style.display = "block";
+		return false;
+	});
+	//インストールダイアログの表示
+	function installApp() {
+		elem.promptEvent.prompt();
+		elem.promptEvent.userChoice.then(function(choice){
+			if (choice.outcome === 'accepted') {
+				elem.style.display = "none";
+			}
+			elem.promptEvent = null;  // 一度しか使えないため後始末
+		});
+	}
+}
+</script>
+</body>
