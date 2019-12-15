@@ -29,14 +29,26 @@
 <button id="InstallBtn" class="none">ホーム画面に追加</button>
 <h1>WordSpliter</h1>
 <table><tbody>
-	<tr><td>入力テキスト</td>
+	<tr>
+		<td><div class="resFlexCol">
+			入力テキスト
+			<label class="sm"><input id="CheckboxAutoHeight" type="checkbox"/>高さ自動調節</label>
+		</div></td>
 		<td>
 			<textarea id="In"></textarea>
 			<!-- Paste機能。要permission <button id="BtnPasteInIn">Paste</button>-->
 		</td>
 	</tr>
-	<tr><td>区切り文字</td>
-		<td><textarea id="Dlmt" placeholder="一文字区切り">,</textarea></td>
+	<tr>
+		<td><div class="resFlexCol">
+				区切り文字
+				<label class="sm"><input id="CheckboxRegExp" type="checkbox">正規表現</label>
+				<span id="NoteRegExp" class="sm">(ｷｬﾌﾟﾁｬｸﾞﾙｰﾌﾟ使用不可)</span>
+		</div></td>
+		<td><div class="resFlexCol">
+			<textarea id="Dlmt" placeholder="一文字区切り">,</textarea>
+			<div id="ErrorRegExp" class="sm red"></div>
+		</div></td>
 	</tr>
 	<tr>
 		<td><label><input id="CheckboxReplaceDlmt" type="checkbox" checked/>区切り文字の変換</label></td>
@@ -90,9 +102,7 @@ function registerInstallAppEvent(elem){
 	function installApp() {
 		elem.promptEvent.prompt();
 		elem.promptEvent.userChoice.then(function(choice){
-			if (choice.outcome === 'accepted') {
-				elem.style.display = "none";
-			}
+			elem.style.display = "none";
 			elem.promptEvent = null;  // 一度しか使えないため後始末
 		});
 	}
